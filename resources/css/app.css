@@ -5,17 +5,23 @@
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 
+/* Light only: nothing sets .dark, so dark: utilities never apply. */
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
     --font-sans:
-        Instrument Sans, ui-sans-serif, system-ui, sans-serif,
+        Nunito, 'Segoe UI', ui-sans-serif, system-ui, sans-serif,
         'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
         'Noto Color Emoji';
 
-    --radius-lg: var(--radius);
-    --radius-md: calc(var(--radius) - 2px);
-    --radius-sm: calc(var(--radius) - 4px);
+    /* The Stisla admin template the original used: 3px corners. */
+    --radius-xl: 3px;
+    --radius-lg: 3px;
+    --radius-md: 3px;
+    --radius-sm: 2px;
+
+    --color-band: #6777ef;
+    --color-ink: #34395e;
 
     --color-background: var(--background);
     --color-foreground: var(--foreground);
@@ -79,87 +85,49 @@
     }
 }
 
-@layer utilities {
-    body,
-    html {
-        --font-sans:
-            'Instrument Sans', ui-sans-serif, system-ui, sans-serif,
-            'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
-            'Noto Color Emoji';
-    }
+/* Stisla's card: white, borderless, a faint drop shadow. */
+@utility stisla-card {
+    background-color: #ffffff;
+    border-radius: 3px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
 }
 
 :root {
-    --background: hsl(0 0% 100%);
-    --foreground: hsl(0 0% 3.9%);
-    --card: hsl(0 0% 100%);
-    --card-foreground: hsl(0 0% 3.9%);
-    --popover: hsl(0 0% 100%);
-    --popover-foreground: hsl(0 0% 3.9%);
-    --primary: hsl(0 0% 9%);
-    --primary-foreground: hsl(0 0% 98%);
-    --secondary: hsl(0 0% 92.1%);
-    --secondary-foreground: hsl(0 0% 9%);
-    --muted: hsl(0 0% 96.1%);
-    --muted-foreground: hsl(0 0% 45.1%);
-    --accent: hsl(0 0% 96.1%);
-    --accent-foreground: hsl(0 0% 9%);
-    --destructive: hsl(0 84.2% 60.2%);
-    --destructive-foreground: hsl(0 0% 98%);
-    --border: hsl(0 0% 92.8%);
-    --input: hsl(0 0% 89.8%);
-    --ring: hsl(0 0% 3.9%);
-    --chart-1: hsl(12 76% 61%);
-    --chart-2: hsl(173 58% 39%);
-    --chart-3: hsl(197 37% 24%);
-    --chart-4: hsl(43 74% 66%);
-    --chart-5: hsl(27 87% 67%);
-    --radius: 0.5rem;
-    --sidebar-background: hsl(0 0% 98%);
-    --sidebar-foreground: hsl(240 5.3% 26.1%);
-    --sidebar-primary: hsl(0 0% 10%);
-    --sidebar-primary-foreground: hsl(0 0% 98%);
-    --sidebar-accent: hsl(0 0% 94%);
-    --sidebar-accent-foreground: hsl(0 0% 30%);
-    --sidebar-border: hsl(0 0% 91%);
-    --sidebar-ring: hsl(217.2 91.2% 59.8%);
-    --sidebar: hsl(0 0% 98%);
-}
-
-.dark {
-    --background: hsl(0 0% 3.9%);
-    --foreground: hsl(0 0% 98%);
-    --card: hsl(0 0% 3.9%);
-    --card-foreground: hsl(0 0% 98%);
-    --popover: hsl(0 0% 3.9%);
-    --popover-foreground: hsl(0 0% 98%);
-    --primary: hsl(0 0% 98%);
-    --primary-foreground: hsl(0 0% 9%);
-    --secondary: hsl(0 0% 14.9%);
-    --secondary-foreground: hsl(0 0% 98%);
-    --muted: hsl(0 0% 16.08%);
-    --muted-foreground: hsl(0 0% 63.9%);
-    --accent: hsl(0 0% 14.9%);
-    --accent-foreground: hsl(0 0% 98%);
-    --destructive: hsl(0 84% 60%);
-    --destructive-foreground: hsl(0 0% 98%);
-    --border: hsl(0 0% 14.9%);
-    --input: hsl(0 0% 14.9%);
-    --ring: hsl(0 0% 83.1%);
-    --chart-1: hsl(220 70% 50%);
-    --chart-2: hsl(160 60% 45%);
-    --chart-3: hsl(30 80% 55%);
-    --chart-4: hsl(280 65% 60%);
-    --chart-5: hsl(340 75% 55%);
-    --sidebar-background: hsl(0 0% 7%);
-    --sidebar-foreground: hsl(0 0% 95.9%);
-    --sidebar-primary: hsl(360, 100%, 100%);
-    --sidebar-primary-foreground: hsl(0 0% 100%);
-    --sidebar-accent: hsl(0 0% 15.9%);
-    --sidebar-accent-foreground: hsl(240 4.8% 95.9%);
-    --sidebar-border: hsl(0 0% 15.9%);
-    --sidebar-ring: hsl(217.2 91.2% 59.8%);
-    --sidebar: hsl(240 5.9% 10%);
+    --background: #fafdfb;
+    --foreground: #6c757d;
+    --card: #ffffff;
+    --card-foreground: #6c757d;
+    --popover: #ffffff;
+    --popover-foreground: #34395e;
+    /* Stisla's #6777ef, one step darker so white button text passes 4.5:1. */
+    --primary: #5a67d8;
+    --primary-foreground: #ffffff;
+    --secondary: #e3eaef;
+    --secondary-foreground: #34395e;
+    --muted: #f4f6f9;
+    --muted-foreground: #78828a;
+    --accent: #eef0fd;
+    --accent-foreground: #34395e;
+    --destructive: #d93b32;
+    --destructive-foreground: #ffffff;
+    --border: #e4e6fc;
+    --input: #e4e6fc;
+    --ring: #6777ef;
+    --chart-1: #2a78d6;
+    --chart-2: #47c363;
+    --chart-3: #ffa426;
+    --chart-4: #fc544b;
+    --chart-5: #3abaf4;
+    --radius: 3px;
+    --sidebar-background: #ffffff;
+    --sidebar-foreground: #868e96;
+    --sidebar-primary: #6777ef;
+    --sidebar-primary-foreground: #ffffff;
+    --sidebar-accent: #f8f9fa;
+    --sidebar-accent-foreground: #6777ef;
+    --sidebar-border: #f2f2f2;
+    --sidebar-ring: #6777ef;
+    --sidebar: #ffffff;
 }
 
 @layer base {
@@ -168,5 +136,10 @@
     }
     body {
         @apply bg-background text-foreground;
+    }
+    h1,
+    h2,
+    h3 {
+        color: var(--color-ink);
     }
 }
